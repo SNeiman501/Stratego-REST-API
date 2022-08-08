@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>indice provisorio</title>
+	<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <head>
+        <h1 class="title title__he>ad">indice provisorio</h1>
+    </head>
+    <div class="container container__player-login">
+        <main class="main main__player-login">
+            <h2>Crear nombre y buscar partida</h2>
+            <form class="form form__player-login" id="form">
+                <label for="name">nombre:</label>
+                <input id="name" type="text" name="name"><br>
+                <p>si quiere jugar con alguien escriban la misma frase de sincronizacion</p>
+                <label for="fraseSync">frase de sincronizacion:</label>
+                <input id="fraseSync" type="text" name="syncPhrase">
+                <button class="button button__nick" id="buttonName" onclick="customPost(event)">buscarPartida</button>
+            </form>
+            <p class="welcome welcome__paragraph" id="welcome"></p>
+            <div class="welcome welcome__container">
+            </div>
+        </main>
+    </div>
+
+    <script>
+        async function customPost(event) {
+            event.preventDefault()
+            let name = document.getElementById("name").value
+            let syncPhrase = document.getElementById("fraseSync").value
+            const url = "http://localhost:3000/matchmaking/searchForOponent"
+            let data  = await fetch(url, {
+                method: "POST",
+                body: new URLSearchParams({
+                    'name': name,
+                    'syncronization_phrase':syncPhrase
+                })
+            }).then(res=>res.json()).then(data=>{
+                window.localStorage.setItem('playerKey',data.key);
+                window.localStorage.setItem('matchID',data.matchID);
+                console.log(data);
+            });
+            window.location.href = 'http://localhost:3000/matchmaking/buscandoOponente...';
+        }
+    </script>
+</body>
+</html>

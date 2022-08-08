@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>indice provisorio</title>
+	<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <head>
+        <br>
+        <br>
+        <br>
+        <h1 class="title title__he>ad">buscando oponente...</h1>
+        <h2 class="title title__he>ad">la partida comenzara pronto</h2>
+    </head>
+        <script>
+            //revisa cada x milisegundos si encontro partida
+            function checkForOponent(){setTimeout(function(){
+                fetch("http://localhost:3000/matchmaking/matchmakingEnded/",{
+                method: "PUT",//esta como un put por que sino no se puede mandar por body
+                body: new URLSearchParams({
+                    "playerKey":window.localStorage.getItem('playerKey')
+                })}).then(res=>res.json()).then(data=>{
+                if (data.ended===true){
+                    window.location.href = 'http://localhost:3000/menu';
+                }else{
+                    checkForOponent();
+                }
+            });
+             }, 2000);}//cantidad de milisegundos entre consultas
+            checkForOponent();
+    </script>
+</body>
+</html>
