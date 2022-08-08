@@ -22,8 +22,7 @@ function updateMap(match,map,playerSlot){//playerSlot==> si es jugador 1 o jugad
     // console.log("mapa completo:")
     // console.log(match.map);
     fileHandler.updateMatchFile(match); //actualiza el archivo de la partida
-    addLocalMap(match); //actualiza la pantalla de los jugadores
-
+    addLocalMap(match); //updates player screens
 }
 //mover las rutas a este archivo puede ser una solucion rapida
 async function getStartingUnits(matchID,playerKey){
