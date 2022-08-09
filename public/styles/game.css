@@ -1,0 +1,92 @@
+/* imports  */
+@import url("https://fonts.googleapis.com/css2?family=MedievalSharp&family=Ubuntu&display=swap");
+
+/* styles  */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 10px;
+  --primary-color: #2d3012;
+  --secundary-color: #474417;
+  --contrast-color: ##471a17;
+  --contrast-color-two: #300f0d;
+}
+body {
+  min-height: 100vh;
+  background: no-repeat center/100%
+    url(/public/img/44ded3791b29dc45a15d7a5c6343e108.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 2rem;
+  box-sizing: border-box;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+header {
+  background-color: var(--contrast-color-two);
+  padding: 1.5rem 4rem;
+  align-items: center;
+  justify-items: center;
+  border-bottom: 3px solid black;
+  box-shadow: 0px 2px 8px 2px;
+}
+header h1 {
+  grid-column: span 6;
+  color: #eee;
+  font-size: 5rem;
+  font-family: "MedievalSharp", cursive;
+}
+header nav {
+  grid-column: span 6;
+  justify-self: end;
+}
+header nav a {
+  margin-left: 3rem;
+  color: #eee;
+  padding: 0.3rem;
+  text-decoration: none;
+  border-bottom: 0.2rem solid var(--secundary-color);
+}
+main {
+  margin: 4rem auto;
+  gap: 1rem;
+  max-width: 90vw;
+  min-height: 80vh;
+}
+main aside.game-log {
+  grid-column: span 3;
+  background: 100% url(/public/img/1302751.jpg);
+  background-size: cover;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px 10px;
+  padding: 2rem;
+  opacity: 80%;
+}
+main div.game-container {
+  grid-column: span 7;
+  border: 3px solid green;
+  padding: 1rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr 10fr 2fr;
+}
+main aside.chat {
+  grid-column: span 2;
+  border: 3px solid yellow;
+}
+div.main-game-board{
+    border: 3px solid black;
+}
+footer {
+  background-color: var(--contrast-color-two);
+}
