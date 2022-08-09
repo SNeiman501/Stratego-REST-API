@@ -68,24 +68,61 @@ main aside.game-log {
   background: 100% url(/public/img/1302751.jpg);
   background-size: cover;
   border-radius: 0.5rem;
-  box-shadow: 0 0 10px 10px;
+  box-shadow: 0 0 1rem 1rem;
   padding: 2rem;
   opacity: 80%;
-}
-main div.game-container {
-  grid-column: span 7;
-  border: 3px solid green;
-  padding: 1rem 2rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 2fr 10fr 2fr;
 }
 main aside.chat {
   grid-column: span 2;
   border: 3px solid yellow;
 }
-div.main-game-board{
-    border: 3px solid black;
+main div.game-container {
+  grid-column: span 7;
+  border: 3px solid green;
+  gap: 2rem;
+  padding: 1rem 2rem;
+  display: grid;
+  grid-template-rows: 2fr 10fr 2fr;
+}
+div.enemy-pieces,
+div.player-pieces {
+  border: salmon solid 2px;
+}
+div.board-wrapper {
+  width: max(36rem, 100%);
+  height: min(100%, 36rem);
+  padding-top: 100%;
+  position: relative;
+}
+div.game-board {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+div.board-grid {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  align-items: center;
+  justify-items: center;
+  border: 4px solid var(--secundary-color);
+}
+div.board-grid div {
+  box-sizing: border-box;
+  border: 3px solid gray;
+  height: 100%;
+  width: 100%;
+}
+.dark-square {
+  background-color: var(--contrast-color-two);
+}
+.light-square {
+  background-color: cornsilk;
 }
 footer {
   background-color: var(--contrast-color-two);
