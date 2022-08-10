@@ -111,6 +111,9 @@ div.board-grid {
   align-items: center;
   justify-items: center;
   border: 4px solid var(--secundary-color);
+  background: no-repeat center/100%
+    url(/public/img/medieval-landscape-73812549.png);
+  background-size: cover;
 }
 div.board-grid div {
   box-sizing: border-box;
@@ -118,12 +121,7 @@ div.board-grid div {
   height: 100%;
   width: 100%;
 }
-.dark-square {
-  background-color: var(--contrast-color-two);
-}
-.light-square {
-  background-color: cornsilk;
-}
+
 footer {
   background-color: var(--contrast-color-two);
 }
