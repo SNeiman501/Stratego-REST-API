@@ -1,45 +1,50 @@
+/*
+this routes are meant to be used for interacting with the game grid, the actual instance of the game
+*/
 const { application, json } = require("express");
 const express=require("express");
 const router = express.Router();
 const game=require('../stratego_app');
 router.use(express.json())
-
 router.get('/', (req, res) => {
     res.sendFile('./views/game.html',{root: './public'});
 });
 
 router.put('/sendPlay/',async (req,res)=>{
     console.log(req.body);
-    let unitId= JSON.parse(req.body.id); //id de la unidad que se quiere mover
-    let pos= JSON.parse(req.body.pos);//pos es un objeto => {"x":posicion_x,"y":_posicion_y} posicion a la que se quiere mover
-    let matchID=  req.body.matchID; //id de la partida del localStorage
-    let playerKey=  req.body.playerKey;//key del jugador del local storage
-    console.log({unitId});
-    console.log({pos});
-    console.log({matchID});
-    console.log({playerKey});
-    console.log("respuesta:")
+    let unitId= JSON.parse(req.body.id); //id of the unit that is being moved
+    let pos= JSON.parse(req.body.pos);//target position of the movement  => {"x":position_x,"y":_position_y}
+    let matchID=  req.body.matchID;//from local storage
+    let playerKey=  req.body.playerKey;//from local storage
     let respuesta=await game.move(unitId,pos,matchID,playerKey);
-    console.log("respuesta del server:")
-    console.log(respuesta)
     res.send(respuesta);
 });
 
-router.post('/setupData',async (req,res)=>{ //desde el cliente se saca la data de aca
+router.post('/setupData',async (req,res)=>{
+    //sends the units that the player can put int the grid
+
+    //this works as a get, but it does not support req.body content, so it is implemented with a post
+    //should find a way to us it with the right http verb eventually
     let matchID=req.body.matchID; //hay que mandar estos parametros en el body
     let playerKey=req.body.playerKey;
     res.send(await game.getStartingUnits(matchID,playerKey));
 });
 
-//el siguiente metodo no esta testeado
-router.put('/setupData',async (req,res)=>{ //desde el cliente se postea las posiciones desde aca
-    let matchID=req.body.matchID; //hay que mandar estos parametros en el body
+router.put('/setupData',async (req,res)=>{
+    //updates the match with the placement of the units of a certain player
+    let matchID=req.body.matchID;
     let playerKey=req.body.playerKey;
-    let map=JSON.parse(req.body.map); //solo de las unidades puestas por el usuario;
+    let map=JSON.parse(req.body.map);
     console.log("partida"+matchID);
     console.log("jugador:"+playerKey);
     console.log(map);
     res.send(await game.setStartingUnits(map,matchID,playerKey));
+})
+
+router.get('/getBoardState',(req,res)=>{
+    //sends the current state of the board to the client
+    let playerKey=req.body.playerKey;
+    res.send(game.getPlayerBoard(playerKey));
 })
 
 

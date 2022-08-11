@@ -1,6 +1,9 @@
-const que= require('../sub-systems/matchmaking_system');
+/*
+this method of generating keys is reliable but it can cause slowdowns when scaled
+clearly only viable for prototyping
+*/
 const {isKeyInFile}=require('./fileHandler');
-async function generateUniqueKey(){ //funcion recursiva, genera ids hasta que se genere una no repetida
+async function generateUniqueKey(){
     function makeid(length) { 
         var result           = '';
         var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -13,10 +16,9 @@ async function generateUniqueKey(){ //funcion recursiva, genera ids hasta que se
     var posibleKey=makeid(5);
     let repeatedKey = await isKeyInFile(posibleKey);
     if (repeatedKey){ 
-        //si encuentra repeticiones genera otra
+        //if repetition is found it generates a new one
         return generateUniqueKey();
     }else{
-        //si no encuentra repeticiones envia la generada
         return posibleKey;
     }
 }
