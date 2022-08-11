@@ -16,10 +16,10 @@
         <h2 class="title title__he>ad">la partida comenzara pronto</h2>
     </head>
         <script>
-            //revisa cada x milisegundos si encontro partida
+            //it checks in time intervals if the a match was found
             function checkForOponent(){setTimeout(function(){
                 fetch("http://localhost:3000/matchmaking/matchmakingEnded/",{
-                method: "PUT",//esta como un put por que sino no se puede mandar por body
+                method: "PUT",
                 body: new URLSearchParams({
                     "playerKey":window.localStorage.getItem('playerKey')
                 })}).then(res=>res.json()).then(data=>{
@@ -29,7 +29,7 @@
                     checkForOponent();
                 }
             });
-             }, 2000);}//cantidad de milisegundos entre consultas
+             }, 2000);}//amount of miliseconds in each interval
             checkForOponent();
     </script>
 </body>

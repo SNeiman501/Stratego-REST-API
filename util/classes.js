@@ -10,7 +10,7 @@ class Player{
         this.key=key;
     }
 }
-// program to implement queue data structure
+// custom Queue class that stores an aditional value (sync phrase)
 
 class Queue {
     syncronization_phrase;
@@ -55,13 +55,16 @@ const mapHeight=10;
 const mapWidth=10;
 class Match{
     player1;
-    player1units; //tengo que ponerlo aca por uqe no puedo enviar mensajes direccionados a cada cliente
+    player1units;
     player2;
     player2units;
-    ended; //si la partida termino
-    currentPlayerTurn;//usa la key
-    setupMode; //cuando hay que poner las fichas
-    id;//id de la partida (generadas linealmente: 1,2,3,4) la verficacion se hace desde las keys de los jugadores asi que no importa
+    ended;
+    //this holds the key, not te slot
+    currentPlayerTurn;
+    //true if both players havent set their units
+    setupMode;
+    id;
+    //10 by 10 grid
     map;
     constructor(p1,p2,id){
         this.ended=false;
@@ -82,12 +85,12 @@ class Match{
 
 /*referencia tipo(type) de unidad:
 0:bandera
-1:espia
+1:espy
 2:scout
-3:minero
-4-10:unidades comunes
-11:bomba
-12:unidad enemiga (desconocido)
+3:miner
+4-10:regular units
+11:bomb
+12:unknown unit
 */
 
 class Unit{
@@ -100,9 +103,6 @@ class Unit{
         this.owner=owner;
     } 
 }
-
-//se devuelven instancias de las clases, no logre poder usarlas como clases en otros archivos
-//el cambio es minimo de todas formas, se tiene que llamar por un constructor vacio y despues usar el set(params)
 module.exports={
     Match,
     Queue,
