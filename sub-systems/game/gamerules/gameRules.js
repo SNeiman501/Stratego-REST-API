@@ -2,9 +2,9 @@
 this file imports both the combat and the movement rules
 olso adds parameters for creating units and methods for checking unit placement
 */
-const startingUnits=require('../startingUnits.json');
-const {isValidMovement}=require("./movement");
-const {fight}=require('./combat');
+const startingUnits = require("../startingUnits.json");
+const { isValidMovement } = require("./movement");
+const { fight } = require("./combat");
 
 function isValidSetup(map,playerSlot,playerKey){
     //playerSlot==>1 or 2
@@ -25,6 +25,7 @@ function isValidSetup(map,playerSlot,playerKey){
     for (let x=0;x<10;x++){
         for (let y=0;y<10;y++){
         }
+      }
     }
     if (playerSlot===1){
         let writtenInValidTerritory=true;
@@ -56,6 +57,7 @@ function isValidSetup(map,playerSlot,playerKey){
         }else{
             return {"succes":false,"message":"the ammount of units placed is not correct"};
         }
+      }
     }
     if (playerSlot===2){
         let writtenInValidTerritory=true;
@@ -85,3 +87,4 @@ function isValidSetup(map,playerSlot,playerKey){
     return {"succes":false,"message":"unknown error"};
 }
 module.exports={isValidSetup,fight,isValidMovement};
+

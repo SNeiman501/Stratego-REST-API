@@ -113,10 +113,20 @@ const isValidMovement=(match,unitData,targetPosition,playerKey)=>{
         answer.errorMessage=(`error: the unit you are trying to move does not belong to you`);
         answer.succes=false;
         return answer;
+      }
+    } else {
+      answer.errorMessage = `error: posicion de destino invalida,  [${targetPosition.x}][${targetPosition.y}]`;
+      answer.succes = false;
+      return answer;
     }
-    console.log()
-    return answer
-}
-module.exports={
-    isValidMovement
-}
+  } else {
+    answer.errorMessage = `error: la unidad no le pertenece al jugador`;
+    answer.succes = false;
+    return answer;
+  }
+  console.log();
+  return answer;
+};
+module.exports = {
+  isValidMovement,
+};

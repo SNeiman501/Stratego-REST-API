@@ -1,14 +1,14 @@
 [
-    {"type":0,"cantidad":1}, 
-    {"type":1,"cantidad":1},
-    {"type":2,"cantidad":8},
-    {"type":3,"cantidad":5},
-    {"type":4,"cantidad":4},
-    {"type":5,"cantidad":4},
-    {"type":6,"cantidad":4},
-    {"type":7,"cantidad":3},
-    {"type":8,"cantidad":2},
-    {"type":9,"cantidad":1},
-    {"type":10,"cantidad":1},
-    {"type":11,"cantidad":6}
+  { "type": 0, "cantidad": 1 },
+  { "type": 1, "cantidad": 1 },
+  { "type": 2, "cantidad": 8 },
+  { "type": 3, "cantidad": 5 },
+  { "type": 4, "cantidad": 4 },
+  { "type": 5, "cantidad": 4 },
+  { "type": 6, "cantidad": 4 },
+  { "type": 7, "cantidad": 3 },
+  { "type": 8, "cantidad": 2 },
+  { "type": 9, "cantidad": 1 },
+  { "type": 10, "cantidad": 1 },
+  { "type": 11, "cantidad": 6 }
 ]

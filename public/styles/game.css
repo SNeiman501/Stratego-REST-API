@@ -1,0 +1,233 @@
+/* imports  */
+@import url("https://fonts.googleapis.com/css2?family=MedievalSharp&family=Ubuntu&display=swap");
+
+/* styles  */
+
+/* general configuration */
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 10px;
+  --primary-color: #2d3012;
+  --secundary-color: #474417;
+  --contrast-color: ##471a17;
+  --contrast-color-two: #300f0d;
+}
+body {
+  min-height: 100vh;
+  background: no-repeat center/100%
+    url(/public/img/44ded3791b29dc45a15d7a5c6343e108.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 2rem;
+  box-sizing: border-box;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+/* header structure */
+
+header {
+  background-color: var(--contrast-color-two);
+  padding: 1.5rem 4rem;
+  align-items: center;
+  justify-items: center;
+  border-bottom: 3px solid black;
+  box-shadow: 0px 2px 8px 2px;
+}
+header h1 {
+  grid-column: span 6;
+  color: #eee;
+  font-size: 5rem;
+  font-family: "MedievalSharp", cursive;
+}
+header nav {
+  grid-column: span 6;
+  justify-self: end;
+}
+header nav a {
+  margin-left: 3rem;
+  color: #eee;
+  padding: 0.3rem;
+  text-decoration: none;
+  border-bottom: 0.2rem solid var(--secundary-color);
+}
+
+/* page structure */
+
+main {
+  margin: 4rem auto;
+  gap: 1rem;
+  max-width: 90vw;
+  min-height: 80vh;
+}
+main aside.game-log {
+  grid-column: span 3;
+  background: 100% url(/public/img/1302751.jpg);
+  background-size: cover;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 1rem 1rem;
+  padding: 2rem;
+  opacity: 80%;
+}
+main aside.chat {
+  grid-column: span 2;
+  border: 3px solid yellow;
+}
+
+/* main game board */
+
+main div.game-container {
+  grid-column: span 7;
+  border: 3px solid green;
+  gap: 2rem;
+  padding: 1rem 2rem;
+  display: grid;
+  grid-template-rows: 2fr 10fr 2fr;
+}
+div.enemy-pieces,
+div.player-pieces {
+  border: salmon solid 2px;
+}
+div.board-wrapper {
+  width: max(36rem, 100%);
+  height: min(100%, 36rem);
+  padding-top: 100%;
+  position: relative;
+}
+div.game-board {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+div.board-grid {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  align-items: center;
+  justify-items: center;
+  border: 8px outset var(--contrast-color-two);
+  /* background: no-repeat center/100%
+    url(/public/img/fighting-scene-the-battle-of-tugela-mary-evans-picture-library.jpg); */
+  background-color: white;
+  background-size: cover;
+}
+div.board-grid div {
+  box-sizing: border-box;
+  border: 3px outset var(--contrast-color-two);
+  height: 100%;
+  cursor: pointer;
+  width: 100%;
+}
+div.board-grid div:hover {
+  background-color: rgba(238, 238, 238, 0.4);
+}
+.border-selected-square {
+  border: 0.6rem solid gold !important;
+  transform: scale(110%);
+  transition: 150ms;
+  box-shadow: 0px 0px 10px 5px;
+}
+/* dropdown menu to select units */
+
+.visibility {
+  visibility: hidden;
+}
+
+.dropdown {
+  position: relative;
+}
+.dropdown-menu {
+  z-index: 999;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 30px;
+  position: absolute;
+  left: 0;
+  background: no-repeat center/100%
+    url(/public/img/Brown-Texture-Rough-Rock-Stone-Background-Pattern-3029435.jpg);
+  background-size: cover;
+  padding: 1rem;
+  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  box-shadow: 0 2px 5px 1px;
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: opacity 150ms ease-in-out, transform 300ms ease-in-out;
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.dropdown-menu.active {
+  opacity: 1;
+  transform: translateY(0px);
+  pointer-events: auto;
+}
+.dropdown-menu figure {
+  opacity: 75%;
+}
+.dropdown-menu figure img {
+  width: 8rem;
+  text-align: center;
+  margin: 0 auto;
+}
+figure figcaption {
+  text-align: center;
+  font-variant: small-caps;
+  font-weight: 1000;
+  color: white;
+}
+
+.dropdown-menu.active figure:hover {
+  transform: scale(110%) skew(-3deg, 3deg);
+  cursor: pointer;
+  transition: 200ms;
+  opacity: 1;
+}
+.dropdown-menu.active figure:not(:hover) {
+  opacity: 75%;
+}
+
+#label {
+  display: inline-block;
+  width: 100%;
+  color: white;
+  font-size: 3.5rem;
+  text-align: center;
+  font-weight: 1000;
+  font-family: "MedievalSharp", cursive;
+  text-decoration: underline;
+  text-decoration-color: #006b52;
+  text-decoration-thickness: 4px;
+}
+
+/* footer  */
+
+footer {
+  background-color: var(--contrast-color-two);
+}

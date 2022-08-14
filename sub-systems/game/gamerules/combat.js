@@ -1,4 +1,3 @@
-
 /*unit type references
 0:flag
 1:spy
@@ -43,6 +42,10 @@ function checkCombatRules(){
         console.log("-------");
         console.log()
     }
+    console.log();
+    console.log("-------");
+    console.log();
+  }
 }
 //checkCombatRules();
 module.exports={fight}
