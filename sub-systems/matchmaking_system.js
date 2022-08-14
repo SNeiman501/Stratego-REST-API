@@ -35,7 +35,7 @@ function onNewPLayer(target_queue){
     if (target_queue.size()>=2){
         let p1= target_queue.dequeue();
         let p2= target_queue.dequeue();
-        console.log("creando partida")
+        console.log("creating match")
         console.log(p1,p2);
         matchCounter++;
         let m = new Match(p1,p2,matchCounter);
