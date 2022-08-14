@@ -18,27 +18,22 @@
       <h1 class="title title__he>ad">buscando oponente...</h1>
       <h2 class="title title__he>ad">la partida comenzara pronto</h2>
     </head>
-    <script>
-      //revisa cada x milisegundos si encontro partida
-      function checkForOponent() {
-        setTimeout(function () {
-          fetch("http://localhost:3000/matchmaking/matchmakingEnded/", {
-            method: "PUT", //esta como un put por que sino no se puede mandar por body
-            body: new URLSearchParams({
-              playerKey: window.localStorage.getItem("playerKey"),
-            }),
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.ended === true) {
-                window.location.href = "http://localhost:3000/menu";
-              } else {
-                checkForOponent();
-              }
+        <script>
+            //it checks in time intervals if the a match was found
+            function checkForOponent(){setTimeout(function(){
+                fetch("http://localhost:3000/matchmaking/matchmakingEnded/",{
+                method: "PUT",
+                body: new URLSearchParams({
+                    "playerKey":window.localStorage.getItem('playerKey')
+                })}).then(res=>res.json()).then(data=>{
+                if (data.ended===true){
+                    window.location.href = 'http://localhost:3000/menu';
+                }else{
+                    checkForOponent();
+                }
             });
-        }, 2000);
-      } //cantidad de milisegundos entre consultas
-      checkForOponent();
+             }, 2000);}//amount of miliseconds in each interval
+            checkForOponent();
     </script>
   </body>
 </html>

@@ -1,3 +1,4 @@
+const sizeLength=10;
 function findUnit(map,id){
     for (let i=0;i<map.length;i++){
         for (let j=0;j<map.length;j++){
@@ -11,19 +12,16 @@ function findUnit(map,id){
     return(false);
 }
 function invertMap(map){
-    //solo confirmo que funciona para matrices cuadradas
-
     var newMap=[];
-    //inicializo el mapa nuevo
-    for (let i=0;i<10;i++){
+    for (let i=0;i<sizeLength;i++){
         newMap[i]=[];
-        for (let j=0;j<10;j++){
+        for (let j=0;j<sizeLength;j++){
             newMap[i][j]=null;
         }
     }
 
-    for (let x=0;x<10;x++){
-        for (let y=0;y<10;y++){
+    for (let x=0;x<sizeLength;x++){
+        for (let y=0;y<sizeLength;y++){
             newMap[x][9-y]=map[x][y];
         }
     }
@@ -31,7 +29,7 @@ function invertMap(map){
 }
 function obscureEnemyUnits(map,playerKey){
     let obscuredMap=[];
-    for (let x=0;x<10;x++){
+    for (let x=0;x<sizeLength;x++){
         obscuredMap[x]=[];
         for (let y=0;y<map[x].length;y++){
             if (map[x][y]==null){

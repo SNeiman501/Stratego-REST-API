@@ -5,26 +5,25 @@ const {getMatch} = require('./util/fileHandler');
 const fileHandler= require('./util/fileHandler');
 const {findUnit,invertMap,obscureEnemyUnits}=require('./util/mapOperations');
 
-function updateMap(match,map,playerSlot){//playerSlot==> si es jugador 1 o jugador 2
+function updateMap(match,map,playerSlot){//playerSlot==> if the player is 1 or 2
     if (playerSlot===1){
         for(let x=0;x<match.map.length;x++){
-            for (let y=0;y<4;y++){ // llena las casillas de la 0 a la 3
+            for (let y=0;y<4;y++){ // fills tiles between 0 and 3
                 match.map[x][y]=map[x][y];
             }
         }
     }else{//si es el slot 2
         for(let x=0;x<match.map.length;x++){
-            for (let y=6;y<10;y++){ // llena las casillas de la 6 a la 9
+            for (let y=6;y<10;y++){ // fills tiles between 6 and 9
                 match.map[x][y]=map[x][y];
             }
         }
     }
     // console.log("mapa completo:")
     // console.log(match.map);
-    fileHandler.updateMatchFile(match); //actualiza el archivo de la partida
+    fileHandler.updateMatchFile(match); //updates player files
     addLocalMap(match); //updates player screens
 }
-//mover las rutas a este archivo puede ser una solucion rapida
 async function getStartingUnits(matchID,playerKey){
     let match=await getMatch(matchID);
     if (match instanceof Error){
@@ -45,7 +44,6 @@ async function getStartingUnits(matchID,playerKey){
     }
 async function setStartingUnits(map,matchID,playerKey){
     match=await fileHandler.getMatch(matchID);
-    // console.log(playerKey)
     if (match instanceof Error){
         return (Error.message);
     }else{
@@ -53,7 +51,7 @@ async function setStartingUnits(map,matchID,playerKey){
             let resul;
             switch (playerKey){
                 case match.player1.key:
-                    let newMap=invertMap(map); //deja el jugador 1 entre [0][0] y [9][3]
+                    let newMap=invertMap(map); //puts player 1 between [0][0] and [9][3]
                     map=newMap;
                     resul=gamerules.isValidSetup(map,1,playerKey)
                     if(resul.succes){
@@ -80,7 +78,7 @@ async function setStartingUnits(map,matchID,playerKey){
                         return{"succes":false,"mustBeAlerted":true,"message":resul.message}
                     }
                     break;
-                default:{ //si ninguna key coincide
+                default:{ //if no key matches
                     return{"succes":false,"mustBeAlerted":true,"message":"error==> key del jugador invalida"}
                 }
             }
@@ -107,11 +105,11 @@ async function move(unitId,targetPosition,matchID,playerKey){
             console.log("el movimiento esta bien")
             if (match.map[targetPosition.x][targetPosition.y]!==null){
                 targetUnit=match.map[targetPosition.x][targetPosition.y];
-                //si el objetivo no es null verifica si la unidad es aliada
+                //if the target is not null it checks if the unit is an ally
                 if (playerKey===match.map[targetPosition.x][targetPosition.y].owner){
-                    return {"succes":false,"mustBeAlerted":true,"message":"atacar unidades aliadas es un acto de traición"}
+                    return {"succes":false,"mustBeAlerted":true,"message":"atacking ally units is considered to be an act of treason"}
                 }
-                //hace los calculos de la pelea con aterioridad
+                //creates the results of the fight in advance
                 console.log("el tipo de el enemigo es="+targetUnit.type)
                 figthResolution=gamerules.fight(unitData.unit.type,targetUnit.type);
                 console.log("figthResolution");
@@ -132,35 +130,34 @@ async function move(unitId,targetPosition,matchID,playerKey){
                         ${unitData.unit}(${unitData.pos.x,unitData.pos.y}) y ${targetUnit} (${targetPosition.x,targetPosition.y}) `}
             }
             }else{
-                //en caso de que sea null
+                //in case of null
                 console.log("figth resolution")
                 figthResolution=gamerules.fight(unitData.unit.type,null);
                 match.map[targetPosition.x][targetPosition.y]=unitData.unit;
             }
-            //siempre borra la unidad por que se destruye o se mueve
+            //it always deletes the unit form the place it moved from, because it either moves or dies
             match.map[unitData.pos.x][unitData.pos.y]=null;
 
-            //si llega a este punto es por que el movimiento era valido
+            //if this point is reached, it is because the movement is valid
             
-            //le pasa el turno al siguiente jugador
+            //so it passes the turn to the opponent
             if (match.player1.key===match.currentPlayerTurn){
                 match.currentPlayerTurn=match.player2.key;
             }else{
                 match.currentPlayerTurn=match.player1.key
             }
-            //verifica si gano la partida con el movimiento
+            //it checks if the movement caused the player to win
             if (targetUnit!=null){
                 if (targetUnit.type===0){
-                    //hay que hacer un sistema para que se le envie al adversario que perdio
-                    //se podria hacer com un endpoint pero va a ser mas facil hacerlo con el socketIO
+                    //here must be implemented some sort of system wich tells the users the result of the match
                     fileHandler.deleteMatch(matchID);
                     return{"succes":true,"mustBeAlerted":true,"message":"ganaste la partida!"}
                 }
             }
-            fileHandler.updateMatchFile(match); //actualiza los archivos de la partida
-            addLocalMap(match); //actualiza la pantalla de los jugadores
+            fileHandler.updateMatchFile(match); //updates players files
+            addLocalMap(match); //updates player screens
             console.log(figthResolution)
-            //ignora las alertas de las casillas vacias
+            //ignores the alerts from void tiles
             if (figthResolution.reason!=="se avanzo a una casilla vacía"){
                 return {"succes":true,"mustBeAlerted":true,"message":(figthResolution.reason+" resultado ==>"+figthResolution.result)}
             }else{
@@ -174,8 +171,8 @@ async function move(unitId,targetPosition,matchID,playerKey){
     }
 }
 function addLocalMap(match){
-
-    if (mapLocalToPlayer.filter(el=>el.playerKey===match.player1.key).length>0){ //si la partida ya existe la acutaliza
+    //if a match exists, it updates it
+    if (mapLocalToPlayer.filter(el=>el.playerKey===match.player1.key).length>0){ 
         let index1 = mapLocalToPlayer.findIndex(element => {
             if (element.playerKey === match.player1.key) {
               return true;
@@ -195,13 +192,15 @@ function addLocalMap(match){
         mapLocalToPlayer[index1].map=mapP1;
         let mapP2=obscureEnemyUnits(JSON.parse(mapString),match.player2.key);
         mapLocalToPlayer[index2].map=mapP2;
-    }else{ //sino, la inicializa
-        if (!match.setupMode){ //si no esta en el modo seteo (es decir, estan los 2 jugadores listos)
+    }
+    //if it does not exist, it is initialized
+    else{ 
+        if (!match.setupMode){ //if the two players are ready (they both put their units)
             let mapString=JSON.stringify(match.map);
             mapCopy=JSON.parse(mapString);
             mapCopy2=JSON.parse(mapString);
             let mapP1=obscureEnemyUnits(mapCopy,match.player1.key);
-            mapP1=JSON.stringify(mapP1); //se hace esto para hacer una copia
+            mapP1=JSON.stringify(mapP1); //this is done to make a copy
             let aux=  {
                 "playerSlot":1,
                 "playerKey":match.player1.key,
@@ -223,11 +222,12 @@ async function initialize(){
     let metaData=await fileHandler.getMetaData();
     let activeMatches=metaData.activeMatches;
     for (let i=0;i<activeMatches.length;i++){
-        let match=await fileHandler.getMatch(activeMatches[i]) //i !== numero de partida i es el lugar en el array de partidas
+        let match=await fileHandler.getMatch(activeMatches[i])
         addLocalMap(match);
     }
-    // console.log("inicializacion finalizada");
 }
+
+//used for debugging, 
 function showPlayerScreens(){setTimeout(function(){
     console.log("pantallas actuales:"+mapLocalToPlayer.length)
     for (let i=0;i<mapLocalToPlayer.length;i++){
@@ -236,11 +236,14 @@ function showPlayerScreens(){setTimeout(function(){
     }
     showPlayerScreens();
 }, 15000);}
-//codigo de inicializacion
-let mapLocalToPlayer=[]; //donde se guarda lo que cada jugador deberia ver
+function getPlayerBoard(key){
+    return mapLocalToPlayer.find(element=> element.playerKey===key);
+}
+//initialization code
+let mapLocalToPlayer=[]; //this variable stores what each player sees
 initialize()//.then(showPlayerScreens());
 
 
 module.exports={
-    getStartingUnits,setStartingUnits,move,addLocalMap,mapLocalToPlayer
+    getStartingUnits,setStartingUnits,move,addLocalMap,mapLocalToPlayer,getPlayerBoard
 }

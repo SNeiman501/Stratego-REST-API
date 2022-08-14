@@ -1,70 +1,51 @@
-/*referencia tipo(type) de unidad:
-0:bandera
-1:espia
+/*unit type references
+0:flag
+1:spy
 2:scout
-3:minero
-4-10:unidades comunes
-11:bomba
+3:miner
+4-10:common units with no especial rules
+11:bomb
 */
-function fight(attaker, defender) {
-  //recibe unit type
-  //casos unicos que hay que revisar primero
-  if (defender === null) {
-    return {
-      result: "gana el atacante",
-      reason: `se avanzo a una casilla vacía`,
-    };
-  }
-  if (attaker === defender) {
-    return {
-      result: "los 2 mueren",
-      reason: `se ataco con un ${attaker} a un ${defender}, las unidades son iguales`,
-    };
-  }
-
-  if (defender === 11) {
-    if (attaker === 3) {
-      return {
-        result: "gana el atacante",
-        reason: `se ataco con un ${attaker}(minero) a un ${defender}(mina), el minero desarma la mina`,
-      };
-    } else
-      return {
-        result: "gana el defensor",
-        reason: `se ataco con un ${attaker} a un ${defender}, la unidad piso una mina`,
-      };
-  }
-  //excepcion del espia
-  if (attaker === 1) {
-    return {
-      result: "gana el atacante",
-      reason: `se ataco con un ${attaker} a un ${defender} el espía siempre gana el ataque (salvo contra bombas(3))`,
-    };
-  }
-  //criterio general
-  if (attaker > defender) {
-    return {
-      result: "gana el atacante",
-      reason: `se ataco con un ${attaker} a un ${defender}`,
-    };
-  } else {
-    return {
-      result: "gana el defensor",
-      reason: `se ataco con un ${attaker} a un ${defender}`,
-    };
-  }
+function fight(attacker,defender){
+    //this function recives 2 unit types (integers)
+    if(defender===null){
+        return {"result":'attacker won',"reason":`se avanzo a una casilla vacía`}
+    }
+    if (attacker===defender){
+        return {"result":'both units are destroyed',"reason":`a unit (${attacker}) attaked a (${defender}), units are equal`}
+    }
+    //bomb exeption
+    if(defender===11){
+        if (attacker===3){
+            return {"result":'attacker won',"reason":`a unit ${attacker} attaked(miner) a (${defender})(mine), the miner disarms the bomb`}
+        }else return {"result":'defender won',"reason":`a unit ${attacker} attaked a (${defender}), the unit stepped on a mine`}
+    }
+    //spy exception
+    if (attacker===1){
+        return {"result":'attacker won',"reason":`a unit ${attacker} attaked a ${defender} spys always win when they attack, unless they step on a bomb`}
+    }
+    //general criteria
+    if (attacker>defender){
+        return {"result":'attacker won',"reason":`a unit ${attacker} attaked a ${defender}`}
+    }else{
+        return {"result":'defender won',"reason":`a unit ${attacker} attaked a ${defender}`}
+    }
 }
 //testing tool
-function checkUnits() {
-  for (let attaker = 1; attaker < 11; attaker++) {
-    console.log(`atacante: {${attaker}}`);
-    for (let defender = 0; defender < 12; defender++) {
-      console.log(`defender:${defender} ====>won:${fight(attaker, defender)}`);
+function checkCombatRules(){
+    for (let attacker=1;attacker<11;attacker++){
+        console.log(`attacker: {${attacker}}`);
+        for (let defender=0;defender<12;defender++){
+            console.log(`defender:${defender} ====>won:${fight(attacker,defender).reason}`)
+        }
+        console.log();
+        console.log("-------");
+        console.log()
     }
     console.log();
     console.log("-------");
     console.log();
   }
 }
-//checkUnits();
-module.exports = { fight };
+//checkCombatRules();
+module.exports={fight}

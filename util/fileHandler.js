@@ -1,3 +1,7 @@
+/*
+takes care of writing and reading files from permanent storage, to ensure a match can be recovered uppon server reset
+probably not the most common practice in video games but it was one of the requirements of the original project
+*/
 const matchRoute= './matches';
 const fs = require('fs');
 function createMatchFile(match){
@@ -6,13 +10,10 @@ function createMatchFile(match){
     if (err){
         console.log("partida:"+match.id +" =>error de lectura: "+err.message)
     }else{
-        //cuando es exitosa
         addMetaData(match.id,match.player1.key,match.player2.key);
     }});
 }
 function updateMatchFile(match){
-    //console.log("mapa actizado:")
-    //console.log(match.map);
     let matchString=JSON.stringify(match);
     fs.writeFile(matchRoute+'/match_'+match.id+".json",matchString,{flag:'w'},err=>{
     if (err){
@@ -77,16 +78,15 @@ async function getMatchCounter(){
 async function isKeyInFile(posibleKey){
     let aux=await getMetaData();
     let keys= aux.activeKeys;
-    if (keys.filter((e)=>e===posibleKey).length>0){ //busca repeticiones de la key
-        //si encuentra repeticiones genera otra
+    if (keys.filter((e)=>e===posibleKey).length>0){ //searches for key repetitions
+        //if found, it generates a new one
         return true;
     }else{
-        //si no encuentra repeticiones envia la generada
         return false;
     }
 }
-//sin funcionar
-async function nukeData(){//borra toda las partidas actuales-- para desarrollo
+//for debuggin, not working currently
+async function nukeData(){
     let ids;
     getMetaData().then(async data=>{
         ids=data.activeMatches;

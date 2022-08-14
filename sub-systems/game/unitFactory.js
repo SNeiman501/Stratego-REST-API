@@ -1,10 +1,11 @@
-//debe leer las cantidades para cada tipo y generar 2 arrays de 40 unidades (clase unit)
-//las ids de las units deben ser unicas
+//must reed the ammounts of each type of unit and generate 2 arrays with 40 units each
+//unit ids must be unique
 const startingUnits= require('./startingUnits.json');
 const {Unit}= require('../../util/classes.js');
 var keyList=[];
 
-function generateUniqueID(){ //funcion recursiva, genera ids hasta que se genere una no repetida
+//recursive function to ensure the generation is unique
+function generateUniqueID(){
     function makeid(length) { 
         var result           = '';
         var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -14,13 +15,12 @@ function generateUniqueID(){ //funcion recursiva, genera ids hasta que se genere
        }
        return result;
     }
-    var posibleKey=makeid(2); //solo 2 digitos por que la chance de repeticion es lo suficientemente baja
+    var posibleKey=makeid(2); //with 2 digits recursion chance is low enough
 
     if (keyList.filter((e)=>e===posibleKey).length>0){ 
-        //si encuentra repeticiones genera otra
+        //if a repetition is found, it generates a new one
         return generateUniqueID();
     }else{
-        //si no encuentra repeticiones envia la generada
         return posibleKey;
     }
 }
@@ -38,7 +38,8 @@ function createUnits(player1Key,player2Key){
             keyList.push(id2);
         }
     }
-    keyList=[]; //resetea la keyList para que no se mezclen entre las partidas
+    //resets key list so it wont affect other matches
+    keyList=[]; 
     return {"p1":p1,"p2":p2}
 }
 module.exports={createUnits}
