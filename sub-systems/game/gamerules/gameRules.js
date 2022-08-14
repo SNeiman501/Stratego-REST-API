@@ -26,7 +26,6 @@ function isValidSetup(map,playerSlot,playerKey){
         for (let y=0;y<10;y++){
         }
       }
-    }
     if (playerSlot===1){
         let writtenInValidTerritory=true;
         //checks if the units were placed in a valid territory
@@ -58,7 +57,6 @@ function isValidSetup(map,playerSlot,playerKey){
             return {"succes":false,"message":"the ammount of units placed is not correct"};
         }
       }
-    }
     if (playerSlot===2){
         let writtenInValidTerritory=true;
          //checks if the units were placed in a valid territory

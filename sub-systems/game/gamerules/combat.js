@@ -46,6 +46,5 @@ function checkCombatRules(){
     console.log("-------");
     console.log();
   }
-}
 //checkCombatRules();
 module.exports={fight}
