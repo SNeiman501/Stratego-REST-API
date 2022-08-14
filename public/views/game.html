@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Main Game</title>
+    <link rel="icon" type="image/x-icon" href="/public/img/icons/favicon.png" />
     <link rel="stylesheet" href="/public/styles/game.css" />
+    <script src="/public/javascript/main-game/Game-Board.js" defer></script>
   </head>
   <body>
     <header class="grid">
@@ -26,175 +28,208 @@
         </div>
         <div class="board-wrapper">
           <div class="game-board">
+            <div class="dropdown">
+              <div class="dropdown-menu" id="units-menu">
+                <figure>
+                  <img
+                    id="captain"
+                    src="/public/img/icons/icons-red/icon-captain-outline-red.png"
+                    alt="captain-icon-red"
+                  />
+                  <figcaption>Captain</figcaption>
+                </figure>
+                <figure>
+                  <img
+                    id="colonel"
+                    src="/public/img/icons/icons-red/icon-colonel-outline-red.png"
+                    alt=""
+                  />
+                  <figcaption>Colonel</figcaption>
+                </figure>
+                <figure>
+                  <img
+                    id="general"
+                    src="/public/img/icons/icons-red/icon-general-outline-red.png"
+                    alt=""
+                  />
+                  <figcaption>General</figcaption>
+                </figure>
+                <figure>
+                  <img
+                    id="lieutenant"
+                    src="/public/img/icons/icons-red/icon-lieutenant-outline-red.png"
+                    alt=""
+                  />
+                  <figcaption>Lieutenant</figcaption>
+                </figure>
+                <figure>
+                  <img
+                    id="major"
+                    src="/public/img/icons/icons-red/icon-major-outline-red.png"
+                    alt=""
+                  />
+                  <figcaption>Major</figcaption>
+                </figure>
+                <figure>
+                  <img
+                    id="marshall"
+                    src="/public/img/icons/icons-red/icon-marshal-outline-red.png"
+                    alt=""
+                  />
+                  <figcaption>Marshall</figcaption>
+                </figure>
+                <figure>
+                  <img
+                    id="miner"
+                    src="/public/img/icons/icons-red/icon-miner-outline-red.png"
+                    alt=""
+                  />
+                  <figcaption>Miner</figcaption>
+                </figure>
+                <figure>
+                  <img
+                    id="scout"
+                    src="/public/img/icons/icons-red/icon-scout-outline-red.png"
+                    alt=""
+                  />
+                  <figcaption>Scout</figcaption>
+                </figure>
+                <figure>
+                  <img
+                    id="sergeant"
+                    src="/public/img/icons/icons-red/icon-sergeant-outline-red.png"
+                    alt=""
+                  />
+                  <figcaption>Sergeant</figcaption>
+                </figure>
+                <figure>
+                  <img
+                    id="spy"
+                    src="/public/img/icons/icons-red/icon-spy-outline-red.png"
+                    alt=""
+                  />
+                  <figcaption>Spy</figcaption>
+                </figure>
+                <figure>
+                  <img
+                    id="bomb"
+                    src="/public/img/icons/icons-red/bomb-icon-outline-red.png"
+                    alt=""
+                  />
+                  <figcaption>Bomb</figcaption>
+                </figure>
+                <figure>
+                  <img
+                    id="flag"
+                    src="/public/img/icons/icons-red/icon-flag-red.png"
+                    alt=""
+                  />
+                  <figcaption>Flag</figcaption>
+                </figure>
+                <p id="label">SELECT UNIT</p>
+              </div>
+            </div>
             <div class="board-grid">
-              <div
-                class="light-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-red/icon-flag-red.png);
-                "
-              ></div>
-              <div
-                class="dark-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-red/icon-colonel-outline-red.png);
-                "
-              ></div>
-              <div
-                class="light-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-red/icon-general-outline-red.png);
-                "
-              ></div>
-              <div
-                class="dark-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-red/icon-lieutenant-outline-red.png);
-                "
-              ></div>
-              <div
-                class="light-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-red/icon-major-outline-red.png);
-                "
-              ></div>
-              <div
-                class="dark-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-red/icon-marshal-outline-red.png);
-                "
-              ></div>
-              <div
-                class="light-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-red/icon-miner-outline-red.png);
-                "
-              ></div>
-              <div
-                class="dark-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-red/icon-scout-outline-red.png);
-                "
-              ></div>
-              <div
-                class="light-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-red/icon-sergeant-outline-red.png);
-                "
-              ></div>
-              <div
-                class="dark-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-red/icon-spy-outline-red.png);
-                "
-              ></div>
-              <div
-                class="light-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-red/bomb-icon-outline-red.png);
-                "
-              ></div>
-              <div
-                class="dark-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-red/icon-captain-outline-red.png);
-                "
-              ></div>
-              <div
-                class="light-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-red/icon-flag-blue.png);
-                "
-              ></div>
-              <div
-                class="dark-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-blue/icon-colonel-outline-blue.png);
-                "
-              ></div>
-              <div
-                class="light-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-blue/icon-general-outline-blue.png);
-                "
-              ></div>
-              <div
-                class="dark-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-blue/icon-lieutenant-outline-blue.png);
-                "
-              ></div>
-              <div
-                class="light-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-blue/icon-major-outline-blue.png);
-                "
-              ></div>
-              <div
-                class="dark-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-blue/icon-marshal-outline-blue.png);
-                "
-              ></div>
-              <div
-                class="light-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-blue/icon-miner-outline-blue.png);
-                "
-              ></div>
-              <div
-                class="dark-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-blue/icon-scout-outline-blue.png);
-                "
-              ></div>
-              <div
-                class="light-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-blue/icon-sergeant-outline-blue.png);
-                "
-              ></div>
-              <div
-                class="dark-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-blue/icon-spy-outline-blue.png);
-                "
-              ></div>
-              <div
-                class="light-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-blue/bomb-icon-outline-blue.png);
-                "
-              ></div>
-              <div
-                class="dark-square"
-                style="
-                  background: no-repeat center/100%
-                    url(/public/img/icons/icons-blue/icon-captain-outline-blue.png);
-                "
-              ></div>
+              <div id="board-square-1"></div>
+              <div id="board-square-2"></div>
+              <div id="board-square-3"></div>
+              <div id="board-square-4"></div>
+              <div id="board-square-5"></div>
+              <div id="board-square-6"></div>
+              <div id="board-square-7"></div>
+              <div id="board-square-8"></div>
+              <div id="board-square-9"></div>
+              <div id="board-square-10"></div>
+              <div id="board-square-11"></div>
+              <div id="board-square-12"></div>
+              <div id="board-square-13"></div>
+              <div id="board-square-14"></div>
+              <div id="board-square-15"></div>
+              <div id="board-square-16"></div>
+              <div id="board-square-17"></div>
+              <div id="board-square-18"></div>
+              <div id="board-square-19"></div>
+              <div id="board-square-20"></div>
+              <div id="board-square-21"></div>
+              <div id="board-square-22"></div>
+              <div id="board-square-23"></div>
+              <div id="board-square-24"></div>
+              <div id="board-square-25"></div>
+              <div id="board-square-26"></div>
+              <div id="board-square-27"></div>
+              <div id="board-square-28"></div>
+              <div id="board-square-29"></div>
+              <div id="board-square-30"></div>
+              <div id="board-square-31"></div>
+              <div id="board-square-32"></div>
+              <div id="board-square-33"></div>
+              <div id="board-square-34"></div>
+              <div id="board-square-35"></div>
+              <div id="board-square-36"></div>
+              <div id="board-square-37"></div>
+              <div id="board-square-38"></div>
+              <div id="board-square-39"></div>
+              <div id="board-square-40"></div>
+              <div id="board-square-41"></div>
+              <div id="board-square-42"></div>
+              <div id="board-square-43"></div>
+              <div id="board-square-44"></div>
+              <div id="board-square-45"></div>
+              <div id="board-square-46"></div>
+              <div id="board-square-47"></div>
+              <div id="board-square-48"></div>
+              <div id="board-square-49"></div>
+              <div id="board-square-50"></div>
+              <div id="board-square-51"></div>
+              <div id="board-square-52"></div>
+              <div id="board-square-53"></div>
+              <div id="board-square-54"></div>
+              <div id="board-square-55"></div>
+              <div id="board-square-56"></div>
+              <div id="board-square-57"></div>
+              <div id="board-square-58"></div>
+              <div id="board-square-59"></div>
+              <div id="board-square-60"></div>
+              <div id="board-square-61" class="setupMode"></div>
+              <div id="board-square-62" class="setupMode"></div>
+              <div id="board-square-63" class="setupMode"></div>
+              <div id="board-square-64" class="setupMode"></div>
+              <div id="board-square-65" class="setupMode"></div>
+              <div id="board-square-66" class="setupMode"></div>
+              <div id="board-square-67" class="setupMode"></div>
+              <div id="board-square-68" class="setupMode"></div>
+              <div id="board-square-69" class="setupMode"></div>
+              <div id="board-square-70" class="setupMode"></div>
+              <div id="board-square-71" class="setupMode"></div>
+              <div id="board-square-72" class="setupMode"></div>
+              <div id="board-square-73" class="setupMode"></div>
+              <div id="board-square-74" class="setupMode"></div>
+              <div id="board-square-75" class="setupMode"></div>
+              <div id="board-square-76" class="setupMode"></div>
+              <div id="board-square-77" class="setupMode"></div>
+              <div id="board-square-78" class="setupMode"></div>
+              <div id="board-square-79" class="setupMode"></div>
+              <div id="board-square-80" class="setupMode"></div>
+              <div id="board-square-81" class="setupMode"></div>
+              <div id="board-square-82" class="setupMode"></div>
+              <div id="board-square-83" class="setupMode"></div>
+              <div id="board-square-84" class="setupMode"></div>
+              <div id="board-square-85" class="setupMode"></div>
+              <div id="board-square-86" class="setupMode"></div>
+              <div id="board-square-87" class="setupMode"></div>
+              <div id="board-square-88" class="setupMode"></div>
+              <div id="board-square-89" class="setupMode"></div>
+              <div id="board-square-90" class="setupMode"></div>
+              <div id="board-square-91" class="setupMode"></div>
+              <div id="board-square-92" class="setupMode"></div>
+              <div id="board-square-93" class="setupMode"></div>
+              <div id="board-square-94" class="setupMode"></div>
+              <div id="board-square-95" class="setupMode"></div>
+              <div id="board-square-96" class="setupMode"></div>
+              <div id="board-square-97" class="setupMode"></div>
+              <div id="board-square-98" class="setupMode"></div>
+              <div id="board-square-99" class="setupMode"></div>
+              <div id="board-square-100" class="setupMode"></div>
             </div>
           </div>
         </div>
