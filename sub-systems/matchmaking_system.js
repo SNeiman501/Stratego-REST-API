@@ -11,68 +11,69 @@ for the time being it works by predicting the number of the next match
 this introduces a big problem, I'll add the issue as soon as posible explaing the problem
 this is a critical error
 */
-
+function createNewQueue(syncronization_phrase){
+    let newQueue=new Queue(syncronization_phrase,matchCounter);
+    matchCounter++;
+    fileHandler.updateMatchCounter(matchCounter);
+    return newQueue;
+}
 function logInPlayer(name,key,syncronization_phrase){
     var p=new Player(name,key);
-    playersLookingForOponent.push(key)
-    let queueWithPhrase=playerQueueList.filter(element=>{return element.syncronization_phrase===syncronization_phrase}) 
+    playersLookingForOpponent.push(key)
+    let queueWithPhrase=playerQueueList.filter(element=>{return element.syncronization_phrase===syncronization_phrase})
+    let target_queue;
     if (queueWithPhrase.length>0){
         queueWithPhrase[0].enqueue(p)
+        target_queue={...queueWithPhrase}[0]; //creates a clone of the object
     }else{
-        //if no queues exist with that frase it creates one
-        let newQueue=new Queue(syncronization_phrase);
+        //if no queues exist with that phrase it creates one
+        let newQueue=createNewQueue(syncronization_phrase)
         newQueue.enqueue(p);
         playerQueueList.push(newQueue);
+        target_queue=newQueue;
     }
-    // console.log("player loged in:")
+    onNewPLayer(target_queue);
+    // console.log("player logged in:")
     // console.log(p);
-    let target_queue=playerQueueList.find(element=>{return element.syncronization_phrase===syncronization_phrase}); //en caso de que se generara una nueva cola
-    return onNewPLayer(target_queue); //returns the id of the next match
+    return (target_queue.matchID)
 }
 
 function onNewPLayer(target_queue){
     console.log(target_queue)
+    console.log(target_queue.size())
     if (target_queue.size()>=2){
         let p1= target_queue.dequeue();
         let p2= target_queue.dequeue();
-        console.log("creating match")
-        console.log(p1,p2);
-        matchCounter++;
-        let m = new Match(p1,p2,matchCounter);
+        let m = new Match(p1,p2,target_queue.matchID);
         let playerUnits=createUnits(p1.key,p2.key);
         m.player1units=playerUnits.p1;
         m.player2units=playerUnits.p2;
         fileHandler.createMatchFile(m);
-        //adds the local maps asociated to the match
+        //adds the local maps associated to the match
         addLocalMap(m);
-        fileHandler.updateMatchCounter(matchCounter);
-        //delets the queue from the list
+        //deletes the queue from the list
         playerQueueList=playerQueueList.filter(element=>{return element.syncronization_phrase!==target_queue.syncronization_phrase})
-        //delets the keys from the list of players looking for matches
-        playersLookingForOponent=playersLookingForOponent.filter(element=>{return ((element!==p1.key)&&(element!==p2.key))})
+        //deletes the keys from the list of players looking for matches
+        playersLookingForOpponent=playersLookingForOpponent.filter(element=>{return ((element!==p1.key)&&(element!==p2.key))})
         // console.log("queue:")
-        // console.log(playersLookingForOponent);
-        return matchCounter; //returns the id of the match that was created
-}else{
-     //in case no match is created returns the id of next match that will be created
-    return(matchCounter+1);
-}
+        // console.log(playersLookingForOpponent);
+    }
 }
 
 async function initialize(){
     matchCounter=await fileHandler.getMatchCounter();
 }
-function getplayersLookingForOponent(){
-    return playersLookingForOponent;
+function getplayersLookingForOpponent(){
+    return playersLookingForOpponent;
 }
 //initialization code
 var spaceForPlayer=false;
 //all queues are stored here, one for each user syncronization phrase
 var playerQueueList=[]; 
-//stores the keys of playes currently looking for a match
-var playersLookingForOponent=[];
+//stores the keys of players currently looking for a match
+var playersLookingForOpponent=[];
  initialize();
 module.exports={
     logInPlayer,
-    getplayersLookingForOponent
+    getplayersLookingForOpponent
 }
