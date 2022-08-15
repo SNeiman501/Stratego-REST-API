@@ -10,12 +10,13 @@ class Player{
         this.key=key;
     }
 }
-// custom Queue class that stores an aditional value (sync phrase)
-
+// custom Queue class that stores an aditional value (sync phrase) and to store the asociated match key 
 class Queue {
-    syncronization_phrase;
-    constructor(syncronization_phrase) {
+    syncronization_phrase; //used to join players who whant to play together
+    matchID; //ID that would be assigned to the match in case it is created
+    constructor(syncronization_phrase,matchID) {
         this.syncronization_phrase=syncronization_phrase;
+        this.matchID=matchID;
         this.items = [];
     }
     // add element to the queue
